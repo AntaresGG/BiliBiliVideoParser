@@ -1,0 +1,33 @@
+name: Feature request
+description: Propose a focused improvement to the BiliLens workflow or tooling.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: What cannot be done reliably today?
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Example prompt
+      description: Show how a user would naturally ask for this capability.
+      placeholder: Use $bilibili-video-parser to ...
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe the minimum useful result, not an implementation wish list.
+    validations:
+      required: true
+  - type: textarea
+    id: considerations
+    attributes:
+      label: Source, privacy, or compatibility considerations
+      description: Note any Bilibili endpoint, authentication, copyright, or platform constraints.

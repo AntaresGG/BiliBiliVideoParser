@@ -1,0 +1,45 @@
+{
+  "name": "bilibili-video-parser",
+  "version": "1.0.0",
+  "description": "Evidence-aware Bilibili video analysis with subtitles, ASR, timelines, claim tracing, and danmaku signals.",
+  "author": {
+    "name": "AntaresGG",
+    "email": "guankun9@outlook.com",
+    "url": "https://github.com/AntaresGG"
+  },
+  "homepage": "https://github.com/AntaresGG/BiliBiliVideoParser#readme",
+  "repository": "https://github.com/AntaresGG/BiliBiliVideoParser",
+  "license": "MIT",
+  "keywords": [
+    "bilibili",
+    "bilibili-video-summary",
+    "codex-skill",
+    "video-analysis",
+    "subtitle-extraction",
+    "speech-to-text",
+    "danmaku"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Bilibili Video Parser",
+    "shortDescription": "Traceable Bilibili summaries, transcripts, and research.",
+    "longDescription": "Turn Bilibili videos into source-grounded summaries, timestamped outlines, transcripts, claim-evidence maps, and optional danmaku reception analysis with the BiliLens workflow.",
+    "developerName": "AntaresGG",
+    "category": "Productivity",
+    "capabilities": [
+      "Analysis",
+      "Transcription",
+      "Research"
+    ],
+    "websiteURL": "https://github.com/AntaresGG/BiliBiliVideoParser",
+    "brandColor": "#FB7299",
+    "composerIcon": "./assets/logo.svg",
+    "logo": "./assets/logo.svg",
+    "logoDark": "./assets/logo-dark.svg",
+    "defaultPrompt": [
+      "Summarize this Bilibili video with timestamps and evidence.",
+      "Extract and clean the transcript from this Bilibili video.",
+      "Analyze this Bilibili video and include danmaku reception signals."
+    ]
+  }
+}

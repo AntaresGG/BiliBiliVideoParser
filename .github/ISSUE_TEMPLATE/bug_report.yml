@@ -1,0 +1,61 @@
+name: Bug report
+description: Report a reproducible extraction, analysis, rendering, or installation problem.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve BiliLens. Never include cookies, tokens, private media, or full copyrighted subtitles.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Plugin release, commit, or branch.
+      placeholder: v1.0.0
+    validations:
+      required: true
+  - type: input
+    id: codex
+    attributes:
+      label: Codex environment
+      description: Codex app, CLI, or IDE version and operating system.
+      placeholder: Codex CLI on Windows 11
+    validations:
+      required: true
+  - type: input
+    id: input
+    attributes:
+      label: Public Bilibili identifier
+      description: Use a public BV/av/ep/ss identifier. Do not link private or restricted content.
+      placeholder: BV1xx411c7mD
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Include the prompt or command and the smallest reproducible sequence.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and sanitized logs
+      description: Remove credentials, cookies, personal data, and copyrighted content.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed all credentials, cookies, personal data, and private or copyrighted media.
+          required: true
+        - label: I searched existing issues for the same problem.
+          required: true

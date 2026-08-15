@@ -43,4 +43,3 @@ Use cards for repeated items and framed analytical modules. Avoid nested cards. 
 - Prefer "交易窗口", "验证指标", "失效条件", "执行清单".
 - Avoid promotional language and overconfident calls.
 - Make action conditions explicit.
-

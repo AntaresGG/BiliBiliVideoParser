@@ -1,0 +1,20 @@
+{
+  "name": "bililens",
+  "interface": {
+    "displayName": "BiliLens Skills"
+  },
+  "plugins": [
+    {
+      "name": "bilibili-video-parser",
+      "source": {
+        "source": "local",
+        "path": "./plugins/bilibili-video-parser"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

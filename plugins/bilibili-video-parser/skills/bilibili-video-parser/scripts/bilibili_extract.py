@@ -52,17 +52,17 @@ class BilibiliClient:
 
     @staticmethod
     def _load_cookie() -> str:
+        if not os.environ.get("BILI_SESSDATA"):
+            raise ParserError(
+                "authentication",
+                "--use-env-cookie requires BILI_SESSDATA in the environment.",
+            )
         names = {
             "BILI_SESSDATA": "SESSDATA",
             "BILI_JCT": "bili_jct",
             "BILI_BUVID3": "buvid3",
         }
         pairs = [f"{cookie_name}={os.environ[env_name]}" for env_name, cookie_name in names.items() if os.environ.get(env_name)]
-        if not pairs:
-            raise ParserError(
-                "authentication",
-                "--use-env-cookie requires at least BILI_SESSDATA in the environment.",
-            )
         return "; ".join(pairs)
 
     def _headers(self, referer: str | None = None) -> dict[str, str]:

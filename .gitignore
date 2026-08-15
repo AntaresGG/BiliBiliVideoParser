@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.DS_Store
+Thumbs.db
+
+# Local extraction and transcription artifacts
+output/
+outputs/
+*.m4a
+*.mp3
+*.wav
+*.webm
+*.mp4

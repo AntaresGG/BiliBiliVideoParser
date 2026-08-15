@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v10
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Validate release
+        run: |
+          uv sync --locked
+          uv run --python 3.12 python -m unittest discover -s tests -v
+          uv run --python 3.12 python -m compileall -q plugins/bilibili-video-parser/skills/bilibili-video-parser/scripts
+
+      - name: Verify tag and manifest versions
+        shell: pwsh
+        run: |
+          $tagVersion = "${{ github.ref_name }}".TrimStart("v")
+          $plugin = Get-Content -Raw -Encoding UTF8 "plugins/bilibili-video-parser/.codex-plugin/plugin.json" | ConvertFrom-Json
+          $projectLine = Select-String -Path "pyproject.toml" -Pattern '^version = "([^"]+)"$'
+          $projectVersion = $projectLine.Matches[0].Groups[1].Value
+          if ($plugin.version -ne $tagVersion -or $projectVersion -ne $tagVersion) {
+            throw "Tag, plugin, and project versions must match: tag=$tagVersion plugin=$($plugin.version) project=$projectVersion"
+          }
+
+      - name: Package installable plugin
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path "dist" | Out-Null
+          Copy-Item -Recurse "plugins/bilibili-video-parser" "dist/bilibili-video-parser"
+          $archive = "bilibili-video-parser-${{ github.ref_name }}.zip"
+          Compress-Archive -Path "dist/bilibili-video-parser" -DestinationPath "dist/$archive"
+          $hash = (Get-FileHash -Algorithm SHA256 "dist/$archive").Hash.ToLowerInvariant()
+          "$hash  $archive" | Out-File -Encoding utf8NoBOM "dist/$archive.sha256"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${{ github.ref_name }}"
+          dist/bilibili-video-parser-${{ github.ref_name }}.zip
+          dist/bilibili-video-parser-${{ github.ref_name }}.zip.sha256
+          --verify-tag
+          --generate-notes
+          --title "BiliLens ${{ github.ref_name }}"

@@ -1,0 +1,17 @@
+[project]
+name = "bilibili-video-parser"
+version = "1.0.0"
+description = "Development and validation tooling for the Bilibili Video Parser Codex Skill."
+requires-python = ">=3.12"
+license = "MIT"
+authors = [
+  { name = "AntaresGG", email = "guankun9@outlook.com" },
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/AntaresGG/BiliBiliVideoParser"
+Issues = "https://github.com/AntaresGG/BiliBiliVideoParser/issues"
+
+[tool.uv]
+package = false

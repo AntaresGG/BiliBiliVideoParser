@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Python 3.12 · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v10
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Sync locked environment
+        run: uv sync --locked
+
+      - name: Run offline test suite
+        run: uv run --python 3.12 python -m unittest discover -s tests -v
+
+      - name: Compile bundled scripts
+        run: uv run --python 3.12 python -m compileall -q plugins/bilibili-video-parser/skills/bilibili-video-parser/scripts
+
+      - name: Check command-line entry points
+        shell: pwsh
+        run: |
+          $scripts = "plugins/bilibili-video-parser/skills/bilibili-video-parser/scripts"
+          uv run --python 3.12 python "$scripts/bilibili_extract.py" --help | Out-Null
+          uv run --python 3.12 python "$scripts/render_outputs.py" --help | Out-Null
+          uv run --python 3.12 python "$scripts/transcribe_faster_whisper.py" --help | Out-Null
+
+      - name: Check whitespace
+        run: git diff --check
