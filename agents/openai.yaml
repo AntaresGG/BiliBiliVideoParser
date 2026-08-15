@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bilibili Video Parser"
+  short_description: "Bilibili-native parsing with timelines and evidence chains."
+  default_prompt: "Use $bilibili-video-parser to analyze this Bilibili video with the BiliLens workflow and return a source-grounded Chinese summary."
